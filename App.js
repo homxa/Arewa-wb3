@@ -1,17 +1,22 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { Create } from './All code/account/login_create/create';
-import { SafeAreaView } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Create } from './creatAccount/create';
+import { Login } from './creatAccount/login';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 export default function App() {
+  const Stack = createNativeStackNavigator()
   return (
-    <SafeAreaView style={styles.container}>
-    <View style={styles.container}>
-     
+<NavigationContainer>
+<Stack.Navigator>
+  <Stack.Screen name='Login' component={Login}/>
+  <Stack.Screen name='Create Account' component={Create}/>
 
 
-      <Create/>
-    </View>
-    </SafeAreaView>
+</Stack.Navigator>
+
+
+</NavigationContainer>
   );
 }
 
