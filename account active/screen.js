@@ -5,17 +5,40 @@ import { Reset } from '../creatAccount/rigist and Login UI/forgetPass'
 import { EmailModel } from '../creatAccount/stack/verifyEmail'
 import { Home } from './home'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useAuth } from '../creatAccount/auth state/useAuth'
-import { useEffect, useState } from 'react'
-
+import { useEffect} from 'react'
+import { ActivityIndicator } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
+import { loginFaild, loginSuccess, loginstart } from '../redux_store/config_slices/authSlice'
 export const Screen =()=>{
   const Stack = createNativeStackNavigator()
-const [user] = useAuth()
-//const [user,setUser] = useState() 
 
-console.log(user)
-  // if(user.ema)
- if(user && !user.emailVerified){
+  // getting the user if already login from storage
+const dispatch = useDispatch()
+  const getUser = async()=>{
+    dispatch(loginstart())
+    try{
+      const user = await AsyncStorage.getItem('user')
+      console.log(user)
+      dispatch(loginSuccess(JSON.parse(user)))
+    }catch(err){
+      console.log(err)
+      dispatch(loginFaild(err.message))
+    }
+  }
+useEffect(()=>{
+ 
+getUser()
+},[])
+const {user,loading} =useSelector((state)=> state.auth)
+
+//const [user,setUser] = useState() 
+console.log(user,loading)
+  // if(user.ema
+  // redenring the component base on user
+if(loading){
+  return <ActivityIndicator/>
+}
+  else if(user && !user.emailVerified){
 return( 
   <Stack.Navigator>
 

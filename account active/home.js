@@ -2,20 +2,24 @@ import { Button, Text, View } from "react-native"
 import { auth } from "../creatAccount/config/config"
 import { signOut } from "firebase/auth"
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import { useAuth } from "../creatAccount/auth state/useAuth"
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import { First } from "./HomeTabs/first" 
+import { useDispatch } from "react-redux"
+import { logOut } from "../redux_store/config_slices/authSlice"
 export const Home = ({navigatin})=>{
+  const dispatch = useDispatch()
+ 
+
   const Tab = createBottomTabNavigator()
-const [user,setUser,run] = useAuth()
 const logOUt = async()=>{
 try{
-  await AsyncStorage.removeItem('User')
+ AsyncStorage.removeItem('user').then((res)=> console.log('removed'))
+      // Logout from Firebase
+      await signOut(auth);
+dispatch(logOut())
+      // Navigate to the login screen
 
-  await signOut(auth)
-
-  run()
-
+  
   
 }catch(err){
   console.log(err)

@@ -25,13 +25,13 @@ import { useSignUP } from "./schemas/Sschema";
 
 
 export const Create = ({navigation}) => {
+  // model for alaring user to chech eamik state
   const [model, setModel] = useState(false);
   const [error,setError] = useState('');
   const [creating,setCreating] = useState(false)
   const [connected] = useNetwork()
   // input validating
  const [control,handleSubmit,errors] =  useSignUP()
-  // dispalay input UI
 
   // recieved data
   const data = async (dd) => {
@@ -57,7 +57,11 @@ export const Create = ({navigation}) => {
 
   return (
     <>
+  // model for alaring user to chech eamil
+
     <EmailMOdel model={model} navigation={navigation} setModel={setModel}/>
+
+    // form input field
       <KeyboardAwareScrollView style={[{ flex: 1,backgroundColor: 'rgb(18,18,40)',
  }] }>
         <View style={[styles.top, { alignItems: "center",marginTop: 50 }]}>

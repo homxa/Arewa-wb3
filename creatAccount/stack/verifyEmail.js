@@ -2,13 +2,17 @@ import {useEffect, useState } from 'react'
 import {sendEmailVerification, signOut,} from 'firebase/auth'
 import { Image, Modal, Text, TouchableOpacity, View } from 'react-native'
 import { auth } from '../config/config'
-import { useAuth } from '../auth state/useAuth'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useDispatch } from 'react-redux'
+import { logOut } from '../../redux_store/config_slices/authSlice'
 
 
 export const EmailModel = ({navigation})=>{
+
+  // if user have not yet verify their email this will show up
   const [model,setModel] = useState(true)
-  const [user] = useAuth()
+  const dispatch = useDispatch()
+  // send recovery mail to that user 
 const sendvery = async ()=>{
 await sendEmailVerification(user)
 
@@ -17,10 +21,14 @@ useEffect(()=>{
 
   sendvery()
 },[])
+
+
+// if clicked the loging in the model log them out
 const logOUt = async()=>{
   try{
+dispatch(logOut())
     await signOut(auth)
-   await AsyncStorage.removeItem('User')
+
    navigation.navigate('Login')
 
 

@@ -1,11 +1,13 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
 import { Render } from "../rigist and Login UI/loginUI";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  loginFaild,
+  loginSuccess,
+  loginstart,
+} from "../../redux_store/config_slices/authSlice";
 import {
   View,
   Text,
-  TextInput,
   StyleSheet,
   Image,
   TouchableOpacity,
@@ -19,27 +21,47 @@ import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNetwork } from "../config/network";
 import { useLogin } from "./schemas/Lschema";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const Login = ({ navigation }) => {
-  const [login, setLoging] = useState(false);
+  // loading from the store
+  const { loading } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const [connected] = useNetwork();
   const [error, setError] = useState(false);
-  // input validating
- const [handleSubmit,control,errors] = useLogin()
 
-  // recieved data
+  // input validating
+  const [handleSubmit, control, errors] = useLogin();
+
+  // recieved data from the inputs
   const data = async (dd) => {
     if (connected) {
       try {
-        setLoging(true);
+        dispatch(loginstart());
 
-       const current = await signInWithEmailAndPassword(auth, dd.email, dd.password);
-        console.log('succese', current.user.email)
-
-        setLoging(false);
-      } catch {
+        const current = await signInWithEmailAndPassword(
+          auth,
+          dd.email,
+          dd.password
+        );
+        console.log("succese", current.user.email);
+        const user = {
+          uid: current.user.uid,
+          email: current.user.email,
+          emailVerified: current.user.emailVerified,
+          userName: dd.userName,
+        };
+        // check if user email is verified then save
+        if (user.emailVerified) {
+          AsyncStorage.setItem("user", JSON.stringify(user)).then((res) =>
+            console.log("saved")
+          );
+        }
+        // loging succes save user in the General store
+        dispatch(loginSuccess(user));
+      } catch (err) {
         setError(true);
-        setLoging(false);
+        dispatch(loginFaild(err.message));
       }
     }
   };
@@ -68,16 +90,22 @@ export const Login = ({ navigation }) => {
           </View>
           <View style={[styles.bg]}>
             {deatail.map((item, key) => (
-              <Render control={control} item={item} errors={errors} key={key} styles={styles}/>
+              <Render
+                control={control}
+                item={item}
+                errors={errors}
+                key={key}
+                styles={styles}
+              />
             ))}
 
             {/* //Buttons UI */}
             <TouchableOpacity
               style={styles.button}
-              disabled={login}
+              disabled={loading}
               onPress={handleSubmit(data)}
             >
-              {login ? (
+              {loading ? (
                 <ActivityIndicator />
               ) : (
                 <Text style={styles.buttonText}>LOGIN</Text>
@@ -92,7 +120,7 @@ export const Login = ({ navigation }) => {
               textDecorationColor: "green",
               textDecorationLine: "underline",
             }}
-            onPress={()=>navigation.navigate('Password Reset')}
+            onPress={() => navigation.navigate("Password Reset")}
           >
             Forget password?
           </Text>
