@@ -1,13 +1,16 @@
-import { Button, Text, View } from "react-native"
 import { auth } from "../creatAccount/config/config"
 import { signOut } from "firebase/auth"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
-import { First } from "./HomeTabs/first" 
-import { useDispatch } from "react-redux"
 import { logOut } from "../redux_store/config_slices/authSlice"
+import { Ionicons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
+import { Profile } from "./HomeTabs/profile"
+import { EditProfilr } from "./HomeTabs/editProfile"
+import { Course } from "./HomeTabs/course"
 export const Home = ({navigatin})=>{
-  const dispatch = useDispatch()
  
 
   const Tab = createBottomTabNavigator()
@@ -31,16 +34,46 @@ dispatch(logOut())
 return(
 <>
 
+    <Tab.Navigator screenOptions={
+    {
+      tabBarActiveTintColor: 'blue',
+      tabBarInactiveTintColor: 'black',
+      tabBarShowLabel: false,
+   tabBarActiveTintColor: 'white',
+   tabBarActiveBackgroundColor: 'rgb(18,18,40)',  
+    }
+    }>
+ 
+
+      <Tab.Screen name="Home" component={EditProfilr} options={{
+        tabBarIcon: ({color})=><Feather name="home" size={24} color={color} />
+
+      }}/>
+
+<Tab.Screen name="Profile" component={Profile}   options={{
+        tabBarIcon: ({color})=> <FontAwesome name="user" size={24} color={color} />,
+headerTitle: 'Profile'
+        
 
 
-  <View style={{flex:1, alignItems: "center",justifyContent: "center"}}>
-   <Button title="Logout" onPress={logOUt}/>
-      <Text>tttt</Text>
-    </View>
-    <Tab.Navigator>
-      <Tab.Screen name="home" component={First}/>
-      <Tab.Screen name="llf" component={First}/>
-      <Tab.Screen name="ddd" component={First}/>
+      }}/>
+        <Tab.Screen name="cryto news" component={Course}   options={{
+        tabBarIcon: ({color})=><Feather name="trending-up" size={24} color={color} style={{position: 'relative'}}/>,
+
+
+      }}/>
+
+
+<Tab.Screen name="Notifications" component={Profile}   options={{
+        tabBarIcon: ({color})=><MaterialIcons name="notifications" size={24} color={color} />
+      }}/>
+     
+
+
+    
+    
+     
+     
 
     </Tab.Navigator>
     </>

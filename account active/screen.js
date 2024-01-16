@@ -9,8 +9,13 @@ import { useEffect} from 'react'
 import { ActivityIndicator } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginFaild, loginSuccess, loginstart } from '../redux_store/config_slices/authSlice'
+import { createDrawerNavigator } from '@react-navigation/drawer'
+import { Settings } from './setting/setting'
+import { EditProfilr } from './HomeTabs/editProfile'
+
 export const Screen =()=>{
   const Stack = createNativeStackNavigator()
+  const Draw = createDrawerNavigator()
 
   // getting the user if already login from storage
 const dispatch = useDispatch()
@@ -40,11 +45,13 @@ if(loading){
 }
   else if(user && !user.emailVerified){
 return( 
+<>
+  
   <Stack.Navigator>
 
 <Stack.Screen name='Very Password' component={ EmailModel} options={{headerShown: true}}/>
 
-</Stack.Navigator>)
+</Stack.Navigator></>)
 
  }
  else if(user && user.emailVerified){
@@ -52,12 +59,18 @@ return(
 
 
 return(
+  <>
+ 
   <Stack.Navigator>
   
   
-    <Stack.Screen name='Home' component={Home} options={{headerShown: false}}/>
+    <Stack.Screen name='Main' component={Home} options={{headerShown: false}}/>
+    <Stack.Screen name='Settings' component={Settings}/>
+    <Stack.Screen name='Edit Profile' component={EditProfilr}/>
   
-  </Stack.Navigator> 
+  </Stack.Navigator>  
+  
+  </>
 )
 
  } 
