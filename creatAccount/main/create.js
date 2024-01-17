@@ -14,6 +14,9 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { deatail2 } from "./logindeatils";
 
 import { auth } from "../config/config";
+import { db,storage } from "../config/config";
+import {listAll,getDownloadURL,ref} from 'firebase/storage'
+import {addDoc,collection} from 'firebase/firestore'
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
@@ -43,7 +46,38 @@ export const Create = ({navigation}) => {
         dd.email,
         dd.password
       );
+// creating user profile
+try{
+  const defaultpicRef = ref(storage,'userName')
+  const defaulRowPic = await listAll(defaultpicRef)
+ const gettingURL = await getDownloadURL(defaulRowPic.items[0])
+ const defaultPic = gettingURL
+
+
+// adding it to user profile in fireStore
+const userProfileRef = collection(db,'userProfiles')
+const creationTime = current.user.metadata.creationTime
+  addDoc(userProfileRef,{
+  userId: current.user.uid, 
+  userName: dd.userName,
+  profilePic: defaultPic,
+student: true,
+metaData: new Date(creationTime)
+ }).then((data)=> console.log('sent succed')).catch((err)=> console.log('faild to send data to firstore',err.message))
+
+
+}catch(err){
+  console.log('getting default img faild', err)
+}
+
+
+
+
+
+
+      // sending verification email to user
       await sendEmailVerification(current.user);
+      // seting up model
       setModel((prev) => !prev);
       console.log("Created");
       setCreating(false)
@@ -57,11 +91,11 @@ export const Create = ({navigation}) => {
 
   return (
     <>
-  // model for alaring user to chech eamil
+  {/* // model for alaring user to chech eamil */}
 
     <EmailMOdel model={model} navigation={navigation} setModel={setModel}/>
 
-    // form input field
+    {/* // form input field */}
       <KeyboardAwareScrollView style={[{ flex: 1,backgroundColor: 'rgb(18,18,40)',
  }] }>
         <View style={[styles.top, { alignItems: "center",marginTop: 50 }]}>
@@ -91,12 +125,12 @@ export const Create = ({navigation}) => {
             >
               We are happy to have you with us.
             </Text>
-           {error && <Text   style={{
+           {error && (<Text   style={{
                 color: "red",
                 fontSize: 12,
                 fontWeight: 500,
                 textAlign: "center",
-              }}>Email Aready Used</Text>}
+              }}>Email Aready Used</Text>)}
           </View>
           <View style={[styles.bg]}>
             {deatail2.map((item, key) => (

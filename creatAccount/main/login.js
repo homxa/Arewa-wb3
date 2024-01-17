@@ -46,14 +46,13 @@ export const Login = ({ navigation }) => {
         );
         console.log("succese", current.user.email);
         const user = {
-          uid: current.user.uid,
+          userId: current.user.uid,
           email: current.user.email,
           emailVerified: current.user.emailVerified,
-          userName: dd.userName,
         };
         // check if user email is verified then save
         if (user.emailVerified) {
-          AsyncStorage.setItem("user", JSON.stringify(user)).then((res) =>
+          AsyncStorage.setItem("user", JSON.stringify(current.user)).then((res) =>
             console.log("saved")
           );
         }

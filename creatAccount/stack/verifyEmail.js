@@ -12,9 +12,15 @@ export const EmailModel = ({navigation})=>{
   // if user have not yet verify their email this will show up
   const [model,setModel] = useState(true)
   const dispatch = useDispatch()
+
   // send recovery mail to that user 
 const sendvery = async ()=>{
-await sendEmailVerification(user)
+try{
+  await sendEmailVerification(auth.currentUser)
+
+}catch(err){
+  console.log(err)
+}
 
 }
 useEffect(()=>{

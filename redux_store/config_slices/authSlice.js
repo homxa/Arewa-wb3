@@ -17,14 +17,17 @@ state.loading = true
 loginSuccess: (state,action)=>{
   state.loading = false
 
-  const { uid, email, userName,emailVerified } = action.payload;
-  state.user = {
-    uid,
-    email,
-    userName,
-    emailVerified
-  // state.user = action.payload
-  }},
+  // const { userId, email, userName,emailVerified } = action.payload;
+  state.user = action.payload
+  //   userId,
+  //   email,
+  //   emailVerified
+  // // state.user = action.payload
+   
+},
+  loginSuccess2:(state,action)=>{
+userProfile = action.payload
+  },
   loginFaild: (state,action)=>{
     state.loading = false
     state.error = action.error
@@ -39,4 +42,4 @@ loginSuccess: (state,action)=>{
 })
 
 export const authReducer = authSlice.reducer
-export const  {loginstart,loginSuccess,loginFaild,logOut} = authSlice.actions
+export const  {loginstart,loginSuccess,loginFaild,logOut,loginSuccess2} = authSlice.actions

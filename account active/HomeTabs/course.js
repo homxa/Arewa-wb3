@@ -2,42 +2,45 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Button, } from 'react-native';
 import { Picker as Pick } from '@react-native-picker/picker';
-export const Course = () => {
+export const Course = () =>  {
   const [selectedPhase, setSelectedPhase] = useState('phase1');
   const [selectedLanguage, setSelectedLanguage] = useState('english');
 
   return (
-    <View style={styles.container}>
-    <Text style={styles.label}>Select Course Phase:</Text>
-    <Pick
-      style={styles.picker}
-      selectedValue={selectedPhase}
-      onValueChange={(itemValue) => setSelectedPhase(itemValue)}
-      mode={'dropdown'}
-    >
-      <Pick.Item label="Phase 1" value="phase1" />
-      <Pick.Item label="Phase 2" value="phase2" />
-      <Pick.Item label="Phase 3" value="phase3" />
-    </Pick>
+    <View style={{paddingLeft: 10}}>
+      <Text style={styles.textTop}>Select Course Phase:</Text>
+      <Pick
+        selectedValue={selectedPhase}
+        onValueChange={(itemValue) => setSelectedPhase(itemValue)}
+        mode={Platform.OS === 'ios' ? 'modal' : 'dropdown'} // Specify mode based on platform
+style={styles.text}      >
+        <Pick.Item label="Phase 1" value="phase1"  />
+        <Pick.Item label="Phase 2" value="phase2" />
+        <Pick.Item label="Phase 3" value="phase3" />
+      </Pick>
 
-    <Button title="Update Content" />
-  </View>
+      <Text style={styles.textTop}>Select Language:</Text>
+      <Pick
+        selectedValue={selectedLanguage}
+        onValueChange={(itemValue) => setSelectedLanguage(itemValue)}
+        mode={Platform.OS === 'ios' ? 'modal' : 'dropdown'} // Specify mode based on platform
+        style={styles.text}  >
+        <Pick.Item label="English" value="english"/>
+        <Pick.Item label="Hause" value="Hausa" />
+      </Pick>
+
+      <Button title='Update Course'/>
+    </View> 
   );
-};
+};;
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  label: {
-    fontSize: 18,
-    marginBottom: 10,
-  },
-  picker: {
-    width: 200,
-    height: 50,
-    marginBottom: 20,
-  },
+ text:{
+  color: 'white',
+  fontWeight: 'bold',
+ },
+ textTop:{
+  fontSize: 17,
+  color: 'white'
+ }
 })
 

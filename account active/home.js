@@ -1,8 +1,8 @@
-import { auth } from "../creatAccount/config/config"
+import { auth, db } from "../creatAccount/config/config"
 import { signOut } from "firebase/auth"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
-import { logOut } from "../redux_store/config_slices/authSlice"
+import { logOut, loginSuccess2 } from "../redux_store/config_slices/authSlice"
 import { Ionicons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -10,8 +10,57 @@ import { FontAwesome } from '@expo/vector-icons';
 import { Profile } from "./HomeTabs/profile"
 import { EditProfilr } from "./HomeTabs/editProfile"
 import { Course } from "./HomeTabs/course"
+import { useDispatch, useSelector } from "react-redux"
+import { useEffect } from "react"
+import { collection, getDocs, query, where } from "firebase/firestore"
 export const Home = ({navigatin})=>{
- 
+const dispatch = useDispatch()
+const {user} = useSelector((state)=> state.auth);
+const {userProfile} = useSelector((state)=> state.auth)
+
+useEffect(()=>{
+  console.log('this one',auth.currentUser)
+const fectProfile = async()=>{
+try{
+  const docRef = collection(db,'userProfiles')
+  const specified = query(docRef,where('userId','==', user.uid))
+  const getten = await getDocs(specified);
+  const create = getten.docs[0].data()
+  const value = {
+    UserName: create.userName,
+    metaData: create.metaData,
+    profilePic: create.profilePic,
+    student: create.student
+
+  }
+  dispatch(loginSuccess2(  value
+    ))
+    console.log(value)
+
+}catch(err){
+  console.log(err)
+  }
+}
+
+let isM = true
+
+if(user && isM){
+  fectProfile()
+
+}
+// // }// AsyncStorage.setItem()
+
+
+
+
+
+// //   AsyncStorage.getItem('userProfile').then((res)=>{
+// //     if(res){
+// // dispatch(loginSuccess2(res))
+// //     }else{
+// //       console.log('no item found')
+// //     }}).catch(err => console.log('error while gettin user proflie',err.message))
+},[user])
 
   const Tab = createBottomTabNavigator()
 const logOUt = async()=>{

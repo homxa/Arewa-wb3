@@ -15,16 +15,20 @@ import { Feather } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { logOut } from "../../redux_store/config_slices/authSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { signOut } from "firebase/auth";
-import { auth } from "../../creatAccount/config/config";
-
+import { auth, } from "../../creatAccount/config/config";
+import {  useState } from "react";
+import { AntDesign } from '@expo/vector-icons';
+import { Course } from "./course";
 export const Profile = ({navigation})=>{
-  const {user,loading} =useSelector((state)=> state.auth)
+  const {user,loading} =useSelector((state)=> state.auth);
+  const [select,setSelect] = useState(false)
   const dispatch = useDispatch()
+
+  // logOut btn
   const logOUt = async()=>{
     try{
      AsyncStorage.removeItem('user').then((res)=> console.log('removed'))
@@ -40,6 +44,7 @@ export const Profile = ({navigation})=>{
     }
     }
     
+   
 return(
 <>
 <ScrollView style={{flex: 1}} showsHorizontalScrollIndicator={true}>
@@ -50,8 +55,8 @@ return(
           style={styles.firstTop}
         >
           <Image
-            source={require("../../assets/user.jpg")}
-            style={styles.headImage}
+            source={require("../../assets/de3.png")}
+            style={[styles.headImage]}
             resizeMode="contain"
           />
 
@@ -117,7 +122,8 @@ return(
           </View>
           </Pressable>
           {/* //3 */}
-          <View style={styles.arrowIcon}>
+          <View style={{marginBottom: 15,backgroundColor: 'hsl(230, 17%, 14%) '}}>
+          <View style={[styles.arrowIcon,{marginBottom: 0}]}>
 
           <View style={[styles.normal,{flexDirection: "row"}]}>
 
@@ -125,13 +131,24 @@ return(
               <FontAwesome name="book" size={24} color="white" />
             </View>
             <Text style={styles.iconText}>Select Course</Text>
-          </View>
-          <MaterialIcons
+          </View><Text   onPress={()=> setSelect((prev)=> !prev)} style={{alignSelf: "center"}}>
+      {select ? 
+      <AntDesign name="down" size={20} color="white"  style={styles.arroSelf} />:
+      
+      <MaterialIcons
               name="navigate-next"
               size={26}
               color="white"
               style={styles.arroSelf}
-            />
+               
+              /> 
+
+}</Text></View>
+{select && (
+
+<Course/>
+
+)}
         </View>
           {/* //4 */}
           <Pressable onPress={()=> navigation.navigate('Settings')} >
@@ -179,6 +196,7 @@ return(
     color="white"
     style={styles.arroSelf}
   />
+
 </View>
 </Pressable>
        </View>

@@ -8,13 +8,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useEffect} from 'react'
 import { ActivityIndicator } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import { loginFaild, loginSuccess, loginstart } from '../redux_store/config_slices/authSlice'
+import { loginFaild, loginSuccess, loginSuccess2, loginstart } from '../redux_store/config_slices/authSlice'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { Settings } from './setting/setting'
 import { EditProfilr } from './HomeTabs/editProfile'
+import { auth } from '../creatAccount/config/config'
+import { onAuthStateChanged } from 'firebase/auth'
 
 export const Screen =()=>{
   const Stack = createNativeStackNavigator()
+console.log(auth.currentUser?.email) 
   const Draw = createDrawerNavigator()
 
   // getting the user if already login from storage
@@ -23,6 +26,7 @@ const dispatch = useDispatch()
     dispatch(loginstart())
     try{
       const user = await AsyncStorage.getItem('user')
+      
       console.log(user)
       dispatch(loginSuccess(JSON.parse(user)))
     }catch(err){
