@@ -20,13 +20,15 @@ import { logOut } from "../../redux_store/config_slices/authSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { signOut } from "firebase/auth";
 import { auth, } from "../../creatAccount/config/config";
-import {  useState } from "react";
+import {  useEffect, useState } from "react";
 import { AntDesign } from '@expo/vector-icons';
 import { Course } from "./course";
+
+
 export const Profile = ({navigation})=>{
-  const {user,loading} =useSelector((state)=> state.auth);
   const [select,setSelect] = useState(false)
   const dispatch = useDispatch()
+const {profile} = useSelector((state)=> state.userP)
 
   // logOut btn
   const logOUt = async()=>{
@@ -44,7 +46,6 @@ export const Profile = ({navigation})=>{
     }
     }
     
-   
 return(
 <>
 <ScrollView style={{flex: 1}} showsHorizontalScrollIndicator={true}>
@@ -55,13 +56,13 @@ return(
           style={styles.firstTop}
         >
           <Image
-            source={require("../../assets/de3.png")}
+            source={{uri: profile?.profilePic}}
             style={[styles.headImage]}
             resizeMode="contain"
           />
 
           <View>
-            <Text style={styles.userName}>Himxa xai</Text>
+            <Text style={styles.userName}>{profile?.userName}</Text>
           </View>
         </ImageBackground>
         <View
@@ -109,7 +110,7 @@ return(
                   },
                 ]}
               >
-                <FontAwesome5 name="edit" size={24} color="white" />
+                <FontAwesome5 name="edit" size={20} color="white" />
               </View>
               <Text style={styles.iconText}>Edit Profile</Text>
             </View>
@@ -128,7 +129,7 @@ return(
           <View style={[styles.normal,{flexDirection: "row"}]}>
 
             <View style={[styles.iconsbg, { backgroundColor: "gray" }]}>
-              <FontAwesome name="book" size={24} color="white" />
+              <FontAwesome name="book" size={20} color="white" />
             </View>
             <Text style={styles.iconText}>Select Course</Text>
           </View><Text   onPress={()=> setSelect((prev)=> !prev)} style={{alignSelf: "center"}}>
@@ -166,7 +167,7 @@ return(
                   },
                 ]}
               >
-         <Feather name="settings" size={24} color="black" />
+         <Feather name="settings" size={20} color="black" />
               </View>
               <Text style={styles.iconText}>Settings</Text>
             </View>
@@ -186,7 +187,7 @@ return(
 <View style={[styles.normal,{flexDirection: "row"}]}>
 
   <View style={[styles.iconsbg, { backgroundColor: "rgba(0,0,0,0.67)" }]}>
-  <Entypo name="log-out" size={24} color="white" />
+  <Entypo name="log-out" size={20} color="white" />
   </View>
   <Text style={styles.iconText}>Sign Out</Text>
 </View>
@@ -251,7 +252,7 @@ const styles = StyleSheet.create({
   },
   editText: {
     textAlign: "center",
-    fontSize: 12,
+    fontSize: 10,
   },
   first2:{
     flexDirection: "row",
@@ -282,7 +283,7 @@ const styles = StyleSheet.create({
   normal: { flexDirection: "row", marginBottom: 10 },
   iconText: {
     marginLeft: 10,
-    fontSize: 17,
+    fontSize: 13,
     fontWeight: "bold",
     color: "white",
     alignSelf: "center",
@@ -301,5 +302,5 @@ const styles = StyleSheet.create({
     paddingRight: 10,
   },
   sections:{backgroundColor:'hsl(228, 28%, 20%)',padding: 3, marginBottom: 10},
-  secText:{color: 'white', fontWeight: "bold",fontSize: 16,marginBottom: 5}
+  secText:{color: 'white', fontWeight: "bold",fontSize: 10,marginBottom: 5}
 });

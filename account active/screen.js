@@ -5,49 +5,47 @@ import { Reset } from '../creatAccount/rigist and Login UI/forgetPass'
 import { EmailModel } from '../creatAccount/stack/verifyEmail'
 import { Home } from './home'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useEffect} from 'react'
-import { ActivityIndicator } from 'react-native'
+import { useEffect, useState} from 'react'
+import { ActivityIndicator, Text } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import { loginFaild, loginSuccess, loginSuccess2, loginstart } from '../redux_store/config_slices/authSlice'
+import { loginFaild, loginSuccess,} from '../redux_store/config_slices/authSlice'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { Settings } from './setting/setting'
 import { EditProfilr } from './HomeTabs/editProfile'
-import { auth } from '../creatAccount/config/config'
-import { onAuthStateChanged } from 'firebase/auth'
+const Stack = createNativeStackNavigator()
 
 export const Screen =()=>{
-  const Stack = createNativeStackNavigator()
-console.log(auth.currentUser?.email) 
-  const Draw = createDrawerNavigator()
 
   // getting the user if already login from storage
 const dispatch = useDispatch()
+const {user} =useSelector((state)=> state.auth)
+const [get,setGetting] = useState(false)
   const getUser = async()=>{
-    dispatch(loginstart())
+  setGetting(true)
     try{
       const user = await AsyncStorage.getItem('user')
-      
-      console.log(user)
-      dispatch(loginSuccess(JSON.parse(user)))
+      if(user){
+        dispatch(loginSuccess(JSON.parse(user)))
+
+      }
     }catch(err){
       console.log(err)
       dispatch(loginFaild(err.message))
+    }finally{
+      await new Promise((resovle)=> setTimeout(resovle,20))
+      setGetting(false)
+
     }
   }
 useEffect(()=>{
- 
-getUser()
-},[])
-const {user,loading} =useSelector((state)=> state.auth)
+  getUser()
 
-//const [user,setUser] = useState() 
-console.log(user,loading)
-  // if(user.ema
-  // redenring the component base on user
-if(loading){
-  return <ActivityIndicator/>
+},[])
+
+if(get){
+  return <ActivityIndicator color='red'/>
 }
-  else if(user && !user.emailVerified){
+  if(user && !user.emailVerified){
 return( 
 <>
   
@@ -92,8 +90,9 @@ return(
   )
  }
 
-// }
-// else{
-
-// }
 }
+
+
+
+
+

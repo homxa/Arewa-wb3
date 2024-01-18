@@ -16,7 +16,6 @@ export const EditProfilr = () => {
       }
     })();
   }, []);
-  console.log(selectedImage)
 
   const openImagePicker = async () => {
     try {
@@ -27,7 +26,6 @@ export const EditProfilr = () => {
         quality: 1,
         allowsMultipleSelection: false
       });
-      console.log(result)
 
       if (!result.canceled) {
         setSelectedImage(result.assets[0].uri);

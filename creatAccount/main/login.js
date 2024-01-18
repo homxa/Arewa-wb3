@@ -25,10 +25,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const Login = ({ navigation }) => {
   // loading from the store
-  const { loading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [connected] = useNetwork();
   const [error, setError] = useState(false);
+  const [loading,setLoading] = useState(false)
 
   // input validating
   const [handleSubmit, control, errors] = useLogin();
@@ -36,8 +36,8 @@ export const Login = ({ navigation }) => {
   // recieved data from the inputs
   const data = async (dd) => {
     if (connected) {
+      setLoading(true)
       try {
-        dispatch(loginstart());
 
         const current = await signInWithEmailAndPassword(
           auth,
@@ -52,15 +52,17 @@ export const Login = ({ navigation }) => {
         };
         // check if user email is verified then save
         if (user.emailVerified) {
-          AsyncStorage.setItem("user", JSON.stringify(current.user)).then((res) =>
+          AsyncStorage.setItem("user", JSON.stringify(user)).then((res) =>
             console.log("saved")
           );
         }
         // loging succes save user in the General store
         dispatch(loginSuccess(user));
+        setLoading(false)
       } catch (err) {
         setError(true);
         dispatch(loginFaild(err.message));
+        setLoading(false)
       }
     }
   };

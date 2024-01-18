@@ -57,7 +57,7 @@ export const Settings = () => {
 <View style={[styles.normal,{flexDirection: "row",}]}>
 
   <View style={[styles.iconsbg, {backgroundColor:'rgb(178,126,24)'}]}>
-  <MaterialIcons name="notifications" size={24} color='white' />
+  <MaterialIcons name="notifications" size={20} color='white' />
 
   </View>
   <Text style={styles.iconText}>Enable Notification</Text>
@@ -85,7 +85,7 @@ export const Settings = () => {
                   },
                 ]}
               >
-                <FontAwesome5 name="edit" size={24} color="white" />
+                <FontAwesome5 name="edit" size={20} color="white" />
               </View>
               <Text style={styles.iconText}>Edit Profile</Text>
             </View>
@@ -103,7 +103,7 @@ export const Settings = () => {
           <View style={[styles.normal,{flexDirection: "row"}]}>
 
             <View style={[styles.iconsbg, { backgroundColor: "gray" }]}>
-              <FontAwesome name="book" size={24} color="white" />
+              <FontAwesome name="book" size={20} color="white" />
             </View>
             <Text style={styles.iconText}>Select Course</Text>
           </View>
@@ -138,7 +138,7 @@ export const Settings = () => {
                   },
                 ]}
               >
-           <FontAwesome5 name="trash-restore-alt" size={24} color="white" />
+           <FontAwesome5 name="trash-restore-alt" size={20} color="white" />
               </View>
               <Text style={styles.iconText}>Delete Account</Text>
             </View>
@@ -164,7 +164,7 @@ export const Settings = () => {
                   },
                 ]}
               >
-             <MaterialIcons name="vpn-key" size={24} color="black" />
+             <MaterialIcons name="vpn-key" size={20} color="black" />
               </View>
               <Text style={styles.iconText}>Update Password</Text>
             </View>
@@ -182,7 +182,7 @@ export const Settings = () => {
           <View style={[styles.normal,{flexDirection: "row"}]}>
 
             <View style={[styles.iconsbg, { backgroundColor: "rgb(255, 71, 76)" }]}>
-            <MaterialCommunityIcons name="email-sync" size={24} color="white" />
+            <MaterialCommunityIcons name="email-sync" size={20} color="white" />
             </View>
             <Text style={styles.iconText}>Update Email</Text>
           </View>
@@ -200,7 +200,7 @@ export const Settings = () => {
 <View style={[styles.normal,{flexDirection: "row"}]}>
 
   <View style={[styles.iconsbg, { backgroundColor: "rgba(0,0,0,0.67)" }]}>
-  <Entypo name="log-out" size={24} color="white" />
+  <Entypo name="log-out" size={20} color="white" />
   </View>
   <Text style={styles.iconText}>Sign Out</Text>
 </View>
@@ -236,7 +236,7 @@ export const Settings = () => {
                   },
                 ]}
               >
-          <FontAwesome5 name="question" size={24} color="black" />
+          <FontAwesome5 name="question" size={20} color="black" />
               </View>
               <Text style={styles.iconText}>FAQs</Text>
             </View>
@@ -262,7 +262,7 @@ export const Settings = () => {
                   },
                 ]}
               >
-            <MaterialIcons name="support-agent" size={24} color="black" />
+            <MaterialIcons name="support-agent" size={20} color="black" />
               </View>
               <Text style={styles.iconText}>Contact and Support</Text>
             </View>
@@ -301,7 +301,7 @@ export const Settings = () => {
                   },
                 ]}
               >
-                  <FontAwesome5 name="users-slash" size={24} color="white" />
+                  <FontAwesome5 name="users-slash" size={20} color="white" />
 
               </View>
               <Text style={styles.iconText}>Terms of Service</Text>
@@ -327,7 +327,7 @@ export const Settings = () => {
                   },
                 ]}
               >
-         <MaterialIcons name="privacy-tip" size={24} color="white" />
+         <MaterialIcons name="privacy-tip" size={20} color="white" />
 
               </View>
               <Text style={styles.iconText}>Privacy Policy</Text>
@@ -370,30 +370,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginRight: -5
   },
-  headImage: {
-    width: 120,
-    height: 120,
-    borderRadius: 100,
-    marginTop: 5,
-  },
-  userName: {
-    fontSize: 17,
-    fontWeight: "bold",
-    color: "white",
-    marginBottom: 7,
-    alignSelf: "flex-start",
-    marginTop: 5
-  },
-  editBtn: {
-    backgroundColor: "rgb(0,100,0)",
-    width: 150,
-    paddingTop: 8,
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingBottom: 8,
-    textAlign: "center",
-    borderRadius: 10,
-  },
+
   editText: {
     textAlign: "center",
     fontSize: 12,
@@ -403,7 +380,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginBottom: 10,
   backgroundColor: "hsl(230, 17%, 14%)",
-  padding: 10,
+  padding: 6,
   borderRadius: 20
 
   },
@@ -427,7 +404,7 @@ const styles = StyleSheet.create({
   normal: { flexDirection: "row", marginBottom: 10 },
   iconText: {
     marginLeft: 10,
-    fontSize: 17,
+    fontSize: 14,
     fontWeight: "bold",
     color: "white",
     alignSelf: "center",
@@ -437,7 +414,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
             backgroundColor: "hsl(230, 17%, 14%)",
             marginBottom: 15,
-            padding: 10,
+            padding: 6,
             borderRadius: 20
 
   },
@@ -446,5 +423,5 @@ const styles = StyleSheet.create({
     paddingRight: 10,
   },
   sections:{backgroundColor:'hsl(228, 28%, 20%)',padding: 3, marginBottom: 10},
-  secText:{color: 'white', fontWeight: "bold",fontSize: 16,marginBottom: 5}
+  secText:{color: 'white', fontWeight: "bold",fontSize: 17,marginBottom: 5}
 });
