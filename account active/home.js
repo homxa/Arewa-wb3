@@ -90,7 +90,6 @@ return  (
           tabBarIcon: ({ color }) => (
             <Feather name="home" size={24} color={color} />
           ),
-          headerShown: false
         }}
       />
 

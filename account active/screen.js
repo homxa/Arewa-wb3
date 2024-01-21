@@ -6,7 +6,7 @@ import { EmailModel } from '../creatAccount/stack/verifyEmail'
 import { Home } from './home'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useEffect, useState} from 'react'
-import { ActivityIndicator, Text } from 'react-native'
+import { ActivityIndicator, ImageBackground, Text, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginFaild, loginSuccess,} from '../redux_store/config_slices/authSlice'
 import { createDrawerNavigator } from '@react-navigation/drawer'
@@ -32,7 +32,7 @@ const [get,setGetting] = useState(false)
       console.log(err)
       dispatch(loginFaild(err.message))
     }finally{
-      await new Promise((resovle)=> setTimeout(resovle,20))
+      await new Promise((resovle)=> setTimeout(resovle,2000))
       setGetting(false)
 
     }
@@ -43,7 +43,7 @@ useEffect(()=>{
 },[])
 
 if(get){
-  return <ActivityIndicator color='red'/>
+  return (<ImageBackground source={require('../assets/ngn.jpg')} style={{flex: 1}}/>)
 }
   if(user && !user.emailVerified){
 return( 
