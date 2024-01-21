@@ -6,7 +6,8 @@ export const useNetwork = ()=>{
  const state = async()=>{
   try{
   const gett =  await NetWork.getNetworkStateAsync()
-  setIsConnected(gett.isConnected)
+  const availabe = 
+  setIsConnected(gett.isInternetReachable)
   }catch(err){
     console.log(err)
   }

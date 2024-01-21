@@ -10,6 +10,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  useWindowDimensions
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -29,7 +30,7 @@ export const Profile = ({navigation})=>{
   const [select,setSelect] = useState(false)
   const dispatch = useDispatch()
 const {profile} = useSelector((state)=> state.userP)
-
+const dWidth = useWindowDimensions().width
   // logOut btn
   const logOUt = async()=>{
     try{
@@ -53,13 +54,13 @@ return(
         {/* heading and profile of user */}
         <ImageBackground
           source={require("../../assets/b.jpg")}
-          style={styles.firstTop}
-        >
+          style={[styles.firstTop,{width: dWidth * 1}]}
+        ><View style={{backgroundColor: 'red',width: 120,height: 120, borderRadius: 100}}>
           <Image
             source={{uri: profile?.profilePic}}
             style={[styles.headImage]}
             resizeMode="contain"
-          />
+          /></View>
 
           <View>
             <Text style={styles.userName}>{profile?.userName}</Text>
@@ -69,7 +70,7 @@ return(
           style={{
             paddingLeft: 5,
             paddingRight: 5,
-            maxWidth: 400,
+            maxWidth: dWidth * 1,
           }}
         >
         <View style={styles.sections}> 
@@ -227,10 +228,10 @@ const styles = StyleSheet.create({
     marginRight: -5
   },
   headImage: {
-    width: 120,
-    height: 120,
-    borderRadius: 100,
-    marginTop: 5,
+    width: 150,
+    height: 150,
+    borderRadius: 250,
+    //marginTop: 5,
   },
   userName: {
     fontSize: 17,
@@ -264,12 +265,11 @@ const styles = StyleSheet.create({
 
   },
   firstTop: {
-    maxWidth: 500,
     height: 150,
     paddingLeft: 30,
-    paddingTop: 15,
+    paddingTop: 30,
     marginBottom: 30,
-    borderBottomRightRadius: 10,
+    borderBottomRightRadius: 0,
   },
   iconsbg: {
     width: 55,

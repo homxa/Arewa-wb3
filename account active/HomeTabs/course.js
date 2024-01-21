@@ -2,8 +2,10 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Button, } from 'react-native';
 import { Picker as Pick } from '@react-native-picker/picker';
+
+
 export const Course = () =>  {
-  const [selectedPhase, setSelectedPhase] = useState('phase1');
+  const [selectedPhase, setSelectedPhase] = useState('phase2');
   const [selectedLanguage, setSelectedLanguage] = useState('english');
 
   return (

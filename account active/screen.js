@@ -6,7 +6,7 @@ import { EmailModel } from '../creatAccount/stack/verifyEmail'
 import { Home } from './home'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useEffect, useState} from 'react'
-import { ActivityIndicator, ImageBackground, Text, View } from 'react-native'
+import { ActivityIndicator, Image, ImageBackground, Text, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginFaild, loginSuccess,} from '../redux_store/config_slices/authSlice'
 import { createDrawerNavigator } from '@react-navigation/drawer'
@@ -19,6 +19,8 @@ export const Screen =()=>{
   // getting the user if already login from storage
 const dispatch = useDispatch()
 const {user} =useSelector((state)=> state.auth)
+const {loading} =useSelector((state)=> state.userP)
+
 const [get,setGetting] = useState(false)
   const getUser = async()=>{
   setGetting(true)
@@ -43,7 +45,7 @@ useEffect(()=>{
 },[])
 
 if(get){
-  return (<ImageBackground source={require('../assets/ngn.jpg')} style={{flex: 1}}/>)
+  return ( <View style={{flex: 1,backgroundColor: 'black', justifyContent: 'center', alignItems: 'center'}}><Image source={require('../assets/ngn.jpg')} style={{flex: 1}} resizeMode='contain'/></View>)
 }
   if(user && !user.emailVerified){
 return( 

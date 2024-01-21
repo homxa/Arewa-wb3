@@ -15,6 +15,7 @@ import { useNetwork } from "../creatAccount/config/network";
 import { ActivityIndicator, Text } from "react-native";
 import * as SplashScreen from 'expo-splash-screen';
 import { getting, gotten } from "../redux_store/config_slices/profile";
+import { Test } from "./HomeTabs/post";
 
 export const Home = ({ navigatin }) => {
   const dispatch = useDispatch();
@@ -32,8 +33,12 @@ const fectProfile = async () => {
     const value = {
       userName: create.userName,
       student: create.student,
-      uid: create.userId,
+    userId: create.userId,
       profilePic: create.profilePic,
+      student: create.student,
+  isAdmin:create.isAdmin,
+  phase: create.phase,
+  courese:create.courese
     };
     
     dispatch(gotten(value));
@@ -95,7 +100,7 @@ return  (
 
       <Tab.Screen
         name="cryto news"
-        component={UpdatePassword}
+        component={Test}
         options={{
           tabBarIcon: ({ color }) => (
             <Feather

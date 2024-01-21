@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  useWindowDimensions
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -16,6 +17,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 
 export const Settings = () => {
+  const dwidth = useWindowDimensions().width
   return (
     <ScrollView style={{flex: 1}} showsHorizontalScrollIndicator={true}>
       <View style={[styles.cover,{paddingTop: 15}]}>
@@ -25,7 +27,7 @@ export const Settings = () => {
           style={{
             paddingLeft: 5,
             paddingRight: 5,
-            maxWidth: 400,
+            width: dwidth * 1,
           }}
         >
           <Text style={styles.secText}>Profile Setteings</Text>

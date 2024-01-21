@@ -62,7 +62,9 @@ const creationTime = current.user.metadata.creationTime
   userName: dd.userName,
   profilePic: defaultPic,
 student: true,
-metaData: new Date(creationTime)
+isAdmin: false,
+phase: 'phase1',
+courese: null
  }).then((data)=> console.log('sent succed')).catch((err)=> console.log('faild to send data to firstore',err.message))
 
 
