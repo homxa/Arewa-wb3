@@ -24,6 +24,7 @@ import { auth, } from "../../creatAccount/config/config";
 import {  useEffect, useState } from "react";
 import { AntDesign } from '@expo/vector-icons';
 import { Course } from "./course";
+import { Fonts } from "../font";
 
 
 export const Profile = ({navigation})=>{
@@ -287,6 +288,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "white",
     alignSelf: "center",
+    fontFamily: 'serif'
   },
   arrowIcon: {
     flexDirection: "row",

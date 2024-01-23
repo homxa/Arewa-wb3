@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Alert, Button, Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import "react-native-get-random-values";
 import {v4} from 'uuid'
@@ -13,6 +13,7 @@ import { db, storage } from "../../creatAccount/config/config";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { collection, doc, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { gotten } from "../../redux_store/config_slices/profile";
+
 export const EditProfilr = () => {
   const dispatch = useDispatch()
 const {profile} = useSelector((state)=> state.userP)
@@ -65,6 +66,7 @@ const {control,handleSubmit,formState:{errors}} = useForm({
 
   // Function to save changes
   const saveChanges = async(data) => {
+    if (selectedImage === profile.profilePic && !data.userName)return
     // Assume you have a function to update the user details in your backend or state
     // updateUserDetails({ ...userDetails, userName: editedUserName });
     setUpdating(true)
@@ -79,10 +81,7 @@ image = downloadURI
     } catch (error) {
     console.log(error)  
     }
-
-
-    try {
-      
+try {   
 // updating in Firestore
 const collections = collection(db,'userProfiles')
 const specified = query(collections,where('userId','==', profile.userId));
@@ -94,12 +93,12 @@ if(data.userName){
     profilePic: image,
     userName: data.userName
   })
- dispatch(gotten({...profile,profilePic: selectedImage,userName: data.userName}))
+ dispatch(gotten({...profile,profilePic: image,userName: data.userName}))
   } else{
     await updateDoc(gettenId,{
       profilePic: image,
     })
- dispatch(gotten({...profile,profilePic: selectedImage}))
+ dispatch(gotten({...profile,profilePic: image}))
 
 }
 Alert.alert('Updated succecfully')

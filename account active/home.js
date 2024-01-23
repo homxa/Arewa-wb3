@@ -22,6 +22,8 @@ export const Home = ({ navigatin }) => {
   const { user } = useSelector((state) => state.auth);
   const { profile,loading } = useSelector((state) => state.userP);
 
+
+  // geting user profile from DB//
 const fectProfile = async () => {
   dispatch(getting())
   try {
@@ -30,6 +32,7 @@ const fectProfile = async () => {
     const getten = await getDocs(specified);
     const create = getten.docs[0].data();
     console.log(create,'Create')
+    
     const value = {
       userName: create.userName,
       student: create.student,
@@ -38,7 +41,9 @@ const fectProfile = async () => {
       student: create.student,
   isAdmin:create.isAdmin,
   phase: create.phase,
-  courese:create.courese
+  courese:create.courese,
+  header: create.header
+
     };
     
     dispatch(gotten(value));
@@ -64,7 +69,7 @@ const fectProfile = async () => {
 
   const [isConnected] = useNetwork();
   
-
+//displaying page base on user connection if connected
   if (isConnected) {
 return  (
   <>
@@ -95,6 +100,9 @@ return  (
           tabBarIcon: ({ color }) => (
             <Feather name="home" size={24} color={color} />
           ),
+          headerTitleStyle:{
+            fontFamily: 'monospace'
+          }
         }}
       />
 

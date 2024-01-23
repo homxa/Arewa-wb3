@@ -12,6 +12,9 @@ import { loginFaild, loginSuccess,} from '../redux_store/config_slices/authSlice
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { Settings } from './setting/setting'
 import { EditProfilr } from './HomeTabs/editProfile'
+import { Play } from './HomeTabs/play'
+import * as Font from 'expo-font'
+import { Fonts } from './font'
 const Stack = createNativeStackNavigator()
 
 export const Screen =()=>{
@@ -21,10 +24,29 @@ const dispatch = useDispatch()
 const {user} =useSelector((state)=> state.auth)
 const {loading} =useSelector((state)=> state.userP)
 
+// loading fonts functions
+const loadFonts = async () => {
+  try{
+    await Font.loadAsync({
+      [Fonts.regular]: require('../assets/Fira_Sans/FiraSans-Black.ttf'), // Adjust the path
+    [Fonts.italic]: require('../assets/font/NotoSansJP-VariableFont_wght.ttf')
+    
+     // italic: require('./path/to/ItalicFont.ttf'), // Adjust the path
+      // Add more fonts as needed
+    })
+
+  }catch(err){
+    console.log('faild to get font',err)
+  };
+};
+
 const [get,setGetting] = useState(false)
+// getting userDetails  from storage and loading all fonts in it
   const getUser = async()=>{
   setGetting(true)
     try{
+      await loadFonts()
+
       const user = await AsyncStorage.getItem('user')
       if(user){
         dispatch(loginSuccess(JSON.parse(user)))
@@ -39,14 +61,18 @@ const [get,setGetting] = useState(false)
 
     }
   }
+
+
 useEffect(()=>{
   getUser()
 
 },[])
-
+// splash sceen
 if(get){
   return ( <View style={{flex: 1,backgroundColor: 'black', justifyContent: 'center', alignItems: 'center'}}><Image source={require('../assets/ngn.jpg')} style={{flex: 1}} resizeMode='contain'/></View>)
 }
+
+// display tabs base on the user verification
   if(user && !user.emailVerified){
 return( 
 <>
@@ -65,10 +91,12 @@ return(
 return(
   <>
  
-  <Stack.Navigator>
+  <Stack.Navigator >
   
   
     <Stack.Screen name='Main' component={Home} options={{headerShown: false}}/>
+    <Stack.Screen name='Play' component={Play} />
+
     <Stack.Screen name='Settings' component={Settings}/>
     <Stack.Screen name='Edit Profile' component={EditProfilr}/>
   
