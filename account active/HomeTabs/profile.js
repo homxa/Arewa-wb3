@@ -56,12 +56,12 @@ return(
         <ImageBackground
           source={require("../../assets/b.jpg")}
           style={[styles.firstTop,{width: dWidth * 1}]}
-        ><View style={{backgroundColor: 'red',width: 120,height: 120, borderRadius: 100}}>
+        >
           <Image
             source={{uri: profile?.profilePic}}
             style={[styles.headImage]}
-            resizeMode="contain"
-          /></View>
+            resizeMode="cover"
+          />
 
           <View>
             <Text style={styles.userName}>{profile?.userName}</Text>
@@ -229,10 +229,12 @@ const styles = StyleSheet.create({
     marginRight: -5
   },
   headImage: {
-    width: 150,
-    height: 150,
+    width: 130,
+    height: 130,
     borderRadius: 250,
-    //marginTop: 5,
+
+position: 'relative',
+bottom: 10    //marginTop: 5,
   },
   userName: {
     fontSize: 17,
@@ -240,7 +242,10 @@ const styles = StyleSheet.create({
     color: "white",
     marginBottom: 7,
     alignSelf: "flex-start",
-    marginTop: 5
+    position: 'relative',
+bottom: 15,
+left: 16
+    //marginTop: 5
   },
   editBtn: {
     backgroundColor: "rgb(0,100,0)",

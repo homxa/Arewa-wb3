@@ -36,7 +36,6 @@ try {
   const userProfile = collection(db,'userProfiles')
   const getdoc = query(userProfile,where('userId','==',userId))
   const getten = (await (getDocs(getdoc))).docs[0].id
-  console.log(getten)
   await updateDoc(doc(db,'userProfiles',getten),{
     phase:selectedPhase
 

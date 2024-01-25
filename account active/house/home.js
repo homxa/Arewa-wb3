@@ -26,7 +26,6 @@ const getItem = async()=>{
       const gettenDoc = await getDocs(collectRef)
       const getData = gettenDoc.docs.map((doc)=> doc.data())
       const sortedData = getData.sort((a, b) => a.ids - b.ids);
-      console.log(sortedData)
 
       // geting header of each course now
       const collect = collection(db,'couseHead')

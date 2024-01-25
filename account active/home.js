@@ -16,6 +16,8 @@ import { ActivityIndicator, Text } from "react-native";
 import * as SplashScreen from 'expo-splash-screen';
 import { getting, gotten } from "../redux_store/config_slices/profile";
 import { Test } from "./HomeTabs/post";
+import Post from "./HomeTabs/anoun";
+import { Created } from "./HomeTabs/createPost";
 
 export const Home = ({ navigatin }) => {
   const dispatch = useDispatch();
@@ -94,14 +96,15 @@ return  (
       }}
     >
       <Tab.Screen
-        name="Arewa web3"
-        component={HomeScreen}
+        name="Nigerian Arewa web3"
+        component={Created}
         options={{
           tabBarIcon: ({ color }) => (
             <Feather name="home" size={24} color={color} />
           ),
           headerTitleStyle:{
-            fontFamily: 'monospace'
+            fontFamily: 'monospace',
+            elevation: 10
           }
         }}
       />
@@ -124,6 +127,15 @@ return  (
       <Tab.Screen
         name="Notifications"
         component={Profile}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name="notifications" size={24} color={color} />
+          ),
+        }}
+      />
+        <Tab.Screen
+        name="AnounsMent"
+        component={Post}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialIcons name="notifications" size={24} color={color} />

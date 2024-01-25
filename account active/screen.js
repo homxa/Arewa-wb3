@@ -29,7 +29,9 @@ const loadFonts = async () => {
   try{
     await Font.loadAsync({
       [Fonts.regular]: require('../assets/Fira_Sans/FiraSans-Black.ttf'), // Adjust the path
-    [Fonts.italic]: require('../assets/font/NotoSansJP-VariableFont_wght.ttf')
+    [Fonts.italic]: require('../assets/font/NotoSansJP-VariableFont_wght.ttf'),
+    [Fonts.medium]: require('../assets/Fira_Sans/FiraSans-Light.ttf'), // Adjust the path
+
     
      // italic: require('./path/to/ItalicFont.ttf'), // Adjust the path
       // Add more fonts as needed

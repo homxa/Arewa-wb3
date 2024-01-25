@@ -81,55 +81,7 @@ export const Test = () => {
     }
   };
 
-  // 44
-  // const upload = async()=>{
-  //   setLoading(true)
-  //   if(!image || !video)return
-  //   let finalVideo = null
-  //   let finalPic = null
-  // try{
-  //   const adding = await fetch(image)
-  // const vid = await fetch (video)
-  //   const adMe = await adding.blob()
-  //   const adVid = await vid.blob()
-
-  //   const imageTef = ref(storage,`image/${uuidv4()}`)
-
-  //   const videoTef = ref(storage,`Videos/${uuidv4()} mp4`)
-
-  //  const  add = await uploadBytes(imageTef,adMe)
-  //  const addVid = await uploadBytes(videoTef,adVid)
-  //  const get =await getDownloadURL(add.ref)
-  //  const finall = await getDownloadURL(addVid.ref)
-
-  // // setVideo(get)
-  // finalVideo = finall
-  // finalPic = get
-  // console.log(get, 'image')
-  // console.log(finall, 'video')
-
-  // }catch(err){
-  // console.log(err)
-  // }
-
-  // try{
-
-  // const collect = collection(db,'phase2')
-  // await addDoc(collect,{
-  //  id: uuidv4(),
-  // title: title,
-  // image: finalPic,
-  // video: finalVideo,
-  // under: 'Advace Rearch Methodology',
-  // time: '1hr'
-  // })
-
-  // }catch(err){
-  //   console.log(err)
-  // }
-  // setLoading(false)
-
-  // }
+  
   const upload = async () => {
     const collec = collection(db,"userProfiles");
     try {
